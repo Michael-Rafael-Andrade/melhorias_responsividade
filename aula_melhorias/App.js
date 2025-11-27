@@ -2,6 +2,9 @@ import { useState, useMemo, useCallback, Suspense } from 'react';
 import { StyleSheet, Text, View, FlatList, Button, ActivityIndicator } from 'react-native'; // importar FlatList, Button, ActivityIndicator
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+
+import UserCard from './UserCard'; // importando o UserCard
+
 export default function App() {
   return (
     <SafeAreaProvider>
@@ -18,18 +21,42 @@ function MainApp() {
     () => StyleSheet.create({
       container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: accessibleMode ? '#000' : '#f4f4f4',
+
+      },
+      header: {
         alignItems: 'center',
-        justifyContent: 'center',
+        paddingVertical: 20,
+      },
+      title: {
+        fontSize: accessibleMode ? 26 : 20,
+        color: accessibleMode ? '#fff' : '#333',
+        fontWeight: 'bold',
+      },
+      buttonContainer: {
+        marginTop: 10,
       },
     }), [accessibleMode]
   ); // Fim useMemo() 
 
   return (
-    <SafeAreaView>
-      <View>
-        <Text>Lista de usuários</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Lista de usuários</Text>
+        <View style={styles.buttonContainer}> 
+          <Button
+            title={accessibleMode ? 'Modo Padrão' : 'Modo Acessível'}
+            onPress={() => setAccessibleMode(!accessibleMode)}
+            color={accessibleMode ? '#4caf50' : '#007aff'}
+          />
+        </View>
       </View>
+      <UserCard/>
+      <UserCard/>
+      <UserCard/>
+      <UserCard/>
+      <UserCard/>
+      <UserCard/>
     </SafeAreaView>
   );
 
