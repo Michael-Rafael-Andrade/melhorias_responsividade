@@ -27,8 +27,8 @@ function MainApp() {
   );// Fim - Criar um array simulando 1000 usuários
 
   const renderItem = useCallback(
-    ({ item }) => (
-      <Suspense fallback={(<ActivityIndicator />)}>
+    ({ item }) => (  // ActivityIndicator mostra para o usuário uma bolinha rodando enquanto ele espera carregar.
+      <Suspense fallback={(<ActivityIndicator />)}>  
         <UserCard
           name={item.name}
           selected={item.id === selectedId}
@@ -81,6 +81,7 @@ function MainApp() {
         renderItem = {renderItem}
         extraData = {selectedId}
         initialNumToRender={12} // Já inicializa 12 cards logo de cara ao apertar F5
+        removeClippedSubViews   // Conforme não precisa de certas coisas ele vai removendo para aprimorar a velocidade ou desempenho.
 
       />
     </SafeAreaView>
