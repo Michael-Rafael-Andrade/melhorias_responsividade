@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, FlatList, Button, ActivityIndicator } from 'rea
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 
-import UserCard from './UserCard'; // importando o UserCard
+const UserCard = React.lazy(() => import('./UserCard')); //Observação o React.lazy() faz uma importação dinâmica, importação sobre demanda, conforme vai precisando vai carregando os cards.   // import UserCard from './UserCard'; // importando o UserCard
 
 export default function App() {
   return (
@@ -80,7 +80,8 @@ function MainApp() {
         keyExtractor={(item) => item.id}
         renderItem = {renderItem}
         extraData = {selectedId}
-        
+        initialNumToRender={12} // Já inicializa 12 cards logo de cara ao apertar F5
+
       />
     </SafeAreaView>
   );

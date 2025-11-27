@@ -1,9 +1,15 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function UserCard(){
+export default function UserCard({ name, selected, accessibleMode, onPress }){
     const styles = StyleSheet.create({
         card: {
-            backgroundColor: '#cde',
+            backgroundColor: selected 
+            ? accessibleMode 
+                ? '#444' 
+                : '#cde' 
+            : accessibleMode 
+                ? '#222' 
+                : '#fff',    // Observe que o if e else está sendo aplicado aqui de forma organizada.
             padding: 16, // Espaçamento interno
             marginVertical: 6, // Espaçamento externo
             MarginHorizontal: 12, // Espaçamento externo
@@ -14,15 +20,15 @@ export default function UserCard(){
             elevation: 2, // senso de elevação na página
         },
         text: {
-            fontSize: 16,
-            color: '#333',
+            fontSize: accessibleMode ? 22 : 16,
+            color: accessibleMode ? '#fff' : '#333',
         }
     });
 
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
             <View style={styles.card}>
-                <Text style={styles.text}>Usuário 1</Text>
+                <Text style={styles.text}>{name}</Text>
             </View>
         </TouchableOpacity>
     )
