@@ -17,6 +17,29 @@ function MainApp() {
   const [accessibleMode, setAccessibleMode] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
+  const users = useMemo( // Início - Criar um array simulando 1000 usuários
+    () =>
+      Array.from({ length: 1000 }).map((_,i) => ({
+      id: i.toString(),
+      name: `Usuário ${i + 1}`,
+    })),
+    []
+  );// Fim - Criar um array simulando 1000 usuários
+
+  const renderItem = useCallback(
+    ({ item }) => (
+      <Suspense fallback={(<ActivityIndicator />)}>
+        <UserCard
+          name={item.name}
+          selected={item.id === selectedId}
+          accessibleMode={accessibleMode}
+          onPress={() => setSelectedId(item.id)}
+          />
+      </Suspense>
+    ),
+    [selectedId, accessibleMode]
+  );
+
   const styles = useMemo( // use Memo meroiza em uma cache para não precisar ficar reenderizar toda vez
     () => StyleSheet.create({
       container: {
@@ -51,12 +74,14 @@ function MainApp() {
           />
         </View>
       </View>
-      <UserCard/>
-      <UserCard/>
-      <UserCard/>
-      <UserCard/>
-      <UserCard/>
-      <UserCard/>
+      <FlatList
+
+        data={users}
+        keyExtractor={(item) => item.id}
+        renderItem = {renderItem}
+        extraData = {selectedId}
+        
+      />
     </SafeAreaView>
   );
 
