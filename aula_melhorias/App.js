@@ -1,9 +1,9 @@
-import { useState, useMemo, useCallback, Suspense } from 'react';
+import React, { useState, useMemo, useCallback, Suspense } from 'react';
 import { StyleSheet, Text, View, FlatList, Button, ActivityIndicator } from 'react-native'; // importar FlatList, Button, ActivityIndicator
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 
-const UserCard = React.lazy(() => import('./UserCard')); //Observação o React.lazy() faz uma importação dinâmica, importação sobre demanda, conforme vai precisando vai carregando os cards.   // import UserCard from './UserCard'; // importando o UserCard
+const UserCard = React.lazy(() => import('./UserCard')); //Observação o React.lazy() faz uma importação dinâmica, importação sobre demanda, conforme vai precisando vai carregando os cards.   // import UserCard from './UserCard'; // importando o UserCard  // No vídeo da aula 5 tinha dado problema porque tinha esquecido de importar o React.
 
 export default function App() {
   return (
@@ -88,5 +88,3 @@ function MainApp() {
 
 
 }
-
-
